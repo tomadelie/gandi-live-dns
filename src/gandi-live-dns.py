@@ -124,12 +124,5 @@ if __name__ == "__main__":
     parser.add_argument('-f', '--force', help="force an update/create", action="store_true")
     parser.add_argument('-i', '--ip', help="manually set the IP address, skip external lookup service")
     args = parser.parse_args()
-        
-        
+
     main(args.force, args.verbose, args.ip)
-
-
-
-
-
-    
