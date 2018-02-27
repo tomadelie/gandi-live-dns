@@ -89,7 +89,7 @@ def update_records(uuid, dynIP, subdomain):
 
 
 
-def main(force_update, verbosity):
+def main(force_update, verbosity, manual_ip):
 
     if verbosity:
         print "verbosity turned on - not implemented by now"
@@ -97,9 +97,13 @@ def main(force_update, verbosity):
         
     #get zone ID from Account
     uuid = get_uuid()
-   
-    #compare dynIP and DNS IP 
-    dynIP = get_dynip(config.ifconfig)
+
+    #compare dynIP and DNS IP
+    if manual_ip is None:
+        dynIP = get_dynip(config.ifconfig) # Get Dynamic IP from lookup service
+    else:
+        dynIP = manual_ip # Use provided IP address
+
     dnsIP = get_dnsip(uuid)
     
     if force_update:
@@ -118,10 +122,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--verbose', help="increase output verbosity", action="store_true")
     parser.add_argument('-f', '--force', help="force an update/create", action="store_true")
+    parser.add_argument('-i', '--ip', help="manually set the IP address, skip external lookup service")
     args = parser.parse_args()
         
         
-    main(args.force, args.verbose)
+    main(args.force, args.verbose, args.ip)
 
 
 
