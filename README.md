@@ -88,11 +88,13 @@ Status Code: 201 , DNS Record Created , IP updated for subdomain3
 
 ```
 root@dyndns:~/gandi-live-dns-master/src# ./gandi-live-dns.py -h
-usage: gandi-live-dns.py [-h] [-f]
+usage: gandi-live-dns.py [-h] [-v] [-f] [-i IP]
 
 optional arguments:
-  -h, --help     show this help message and exit
-  -f, --force    force an update/create
+  -h, --help      show this help message and exit
+  -v, --verbose   increase output verbosity
+  -f, --force     force an update/create
+  -i IP, --ip IP  manually set the IP address, skip external lookup service
 
 ```
 
@@ -102,6 +104,13 @@ Zone File/Zone UUID. This can be used if additional/new subdomains get appended 
 
 ### IP address lookup service 
 There exist several providers for this case, but better is to run your own somewhere. 
+
+### Pass IP via CLI parameter
+If you do not want to rely on third party services to determine your public IP address you can also pass the IP directly via the command line.
+
+```
+./gandi-live-dns.py -i <your public IP>
+```
 
 #### Poor Mans PHP Solution
 On a LAMP Stack, place the file [index.php](https://github.com/cavebeat/gandi-live-dns/blob/master/src/example-index.php) in a directory /ip in your webroot. 
